@@ -12,13 +12,13 @@ const testData = [
 export default class Test {
 
   @get
-  @validate(TestTo, 'get')
+  @validate(TestTo)
   public list(ctx: Context) {
     ctx.body = { code: 0, data: testData, form: 'list', query: ctx.query }
   }
 
   @postMapping('list')
-  @validate(TestTo, 'post')
+  @validate(TestTo, 'body')
   public add(ctx: Context) {
     ctx.body = { code: 0, data: testData, form: 'test222', query: ctx.query }
   }

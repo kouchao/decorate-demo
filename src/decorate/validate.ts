@@ -1,14 +1,13 @@
 // 验证中间件 参数是模型
-export const validate = (Module, paramKey) => (target, propertyName, descriptor) => {
+export const validate = (Module, paramKey?: 'query' | 'body') => (target, propertyName, descriptor) => {
   let method = descriptor.value;
   descriptor.value = function () {
       const mod = new Module()
       const ctx = arguments[0]
 
       // 根据method设置默认值
-      paramKey = paramKey || (ctx.method === 'GET' || ctx.method === 'DELETE' ? 'get' : 'post')
-      console.log( paramKey === 'post')
-      const {res, data, message} = mod.toJsonAndValid(Module, paramKey === 'post' ? ctx.request.body : ctx.request.query)
+      paramKey = paramKey || (ctx.method === 'GET' || ctx.method === 'DELETE' ? 'query' : 'body')
+      const {res, data, message} = mod.toJsonAndValid(Module, ctx.request[paramKey])
 
       if(!res){
         ctx.body = {
@@ -16,12 +15,7 @@ export const validate = (Module, paramKey) => (target, propertyName, descriptor)
           message
         }
       } else {
-
-        if(paramKey === 'post'){
-          ctx.request.body = data
-        } else {
-          ctx.request.query = data
-        }
+        ctx.request[paramKey] = data
         return method.apply(this, arguments);
       }
   }

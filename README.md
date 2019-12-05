@@ -46,7 +46,7 @@ export default class Test {
 ## 验证装饰器
 
 ### 验证
-- @validate(Mod)) 参数是一个模型
+- @validate(Mod, method) 参数1是一个模型 参数2是一个方法  post 或者 get
 
 ### Mod 模型示例
 > 必须继承Module，在字段上添加约束

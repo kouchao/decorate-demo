@@ -1,11 +1,11 @@
 import Module from "../utils/module"
-import { notNull, isNumber } from "../decorate/validate"
+import { notNull, size } from "../decorate/validate"
 
 export default class TestTo extends Module {
  
   @notNull('name不能为空')
   name
 
-  // @isNumber('number必须是数字')
-  // number
+  @size('age必须是数字', 10, 20)
+  age
 }

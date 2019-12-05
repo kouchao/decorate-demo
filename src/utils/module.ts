@@ -21,7 +21,6 @@ export default class Module {
     // 属性在模型中存在的进行遍历
     Object.getOwnPropertyNames(Mod.prototype.constraint).forEach((key) => {
       const val = data[key] = obj[key]
-
       // 取出当前key的约束条件 是个数组
       const curConstraints = Mod.prototype.constraint[key]
 

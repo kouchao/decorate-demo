@@ -72,7 +72,6 @@ export const load = (folder:string, options?: LoadOptions): KoaRouter => {
   glob
     .sync(require('path').join(folder, `./**/*${extname}`))
     .forEach(item => {
-      console.log(item)
       require(item)
     })
   return router
